@@ -38,6 +38,26 @@ from math import factorial
 from random import shuffle
 import re
 
+def print_dict_tree(d, max_depth=None, indent=0):
+    """Print tree of keys in `dict` object.
+    
+    Prints the different levels of nested keys in a `dict` object. When there
+    are no more dictionaries to key into, prints objects type and byte-size.
+
+    Input
+    -----
+        d : dict
+        max_depth : int
+    """
+    def _recurse(d, indent=0):
+        for key, value in d.items():
+            print('    ' * indent + str(key), end=' ')
+            if isinstance(value, dict) and indent != max_depth:
+                print(); _recurse(value, indent + 1)
+            else:
+                print(":", str(type(d[key])).split("'")[1], "-", str(len(str(d[key]))))
+    
+    return _recurse(d)
 
 def plt_log_hist(v, **kwargs):
     """Make logplot of histogram.
